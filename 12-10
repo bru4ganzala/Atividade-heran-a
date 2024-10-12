@@ -1,0 +1,96 @@
+// Classe base Veiculo
+abstract class Veiculo {
+    protected String marca;
+    protected String modelo;
+    protected int ano;
+
+    public Veiculo(String marca, String modelo, int ano) {
+        this.marca = marca;
+        this.modelo = modelo;
+        this.ano = ano;
+    }
+
+    public abstract String exibirDetalhes();
+}
+
+// Classe Carro
+class Carro extends Veiculo {
+    private int numPortas;
+
+    public Carro(String marca, String modelo, int ano, int numPortas) {
+        super(marca, modelo, ano);
+        this.numPortas = numPortas;
+    }
+
+    @Override
+    public String exibirDetalhes() {
+        return String.format("%s %s, Ano: %d, Número de portas: %d", marca, modelo, ano, numPortas);
+    }
+}
+
+// Classe Moto
+class Moto extends Veiculo {
+    private String tipo;
+
+    public Moto(String marca, String modelo, int ano, String tipo) {
+        super(marca, modelo, ano);
+        this.tipo = tipo;
+    }
+
+    @Override
+    public String exibirDetalhes() {
+        return String.format("%s %s, Ano: %d, Tipo: %s", marca, modelo, ano, tipo);
+    }
+}
+
+// Classe Caminhao
+class Caminhao extends Veiculo {
+    private int cargaMaxima;
+
+    public Caminhao(String marca, String modelo, int ano, int cargaMaxima) {
+        super(marca, modelo, ano);
+        this.cargaMaxima = cargaMaxima;
+    }
+
+    @Override
+    public String exibirDetalhes() {
+        return String.format("%s %s, Ano: %d, Carga máxima: %dkg", marca, modelo, ano, cargaMaxima);
+    }
+}
+
+// Classe Frota
+class Frota {
+    private List<Veiculo> veiculos;
+
+    public Frota() {
+        veiculos = new ArrayList<>();
+    }
+
+    public void adicionarVeiculo(Veiculo veiculo) {
+        veiculos.add(veiculo);
+    }
+
+    public void exibirDetalhesFrota() {
+        for (Veiculo veiculo : veiculos) {
+            System.out.println(veiculo.exibirDetalhes());
+        }
+    }
+}
+
+// Classe principal para execução
+public class Main {
+    public static void main(String[] args) {
+        Frota frota = new Frota();
+
+        Carro carro1 = new Carro("Toyota", "Corolla", 2020, 4);
+        Moto moto1 = new Moto("Honda", "CB500", 2021, "Sport");
+        Caminhao caminhao1 = new Caminhao("Volvo", "FH", 2019, 18000);
+
+        frota.adicionarVeiculo(carro1);
+        frota.adicionarVeiculo(moto1);
+        frota.adicionarVeiculo(caminhao1);
+
+        System.out.println("Detalhes da frota:");
+        frota.exibirDetalhesFrota();
+    }
+}
